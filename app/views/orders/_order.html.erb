@@ -9,6 +9,13 @@
     <%= order.total %>
   </p>
 
+  <% order.order_details.each do |od|%>
+    <strong>Menu:</strong>
+    <%= Menu.find(od.menu_id).name %>
+    <strong>Quantity:</strong>
+    <%= od.quantity %>
+  <% end %>
+
   <p>
     <strong>Status:</strong>
     <%= order.status %>
