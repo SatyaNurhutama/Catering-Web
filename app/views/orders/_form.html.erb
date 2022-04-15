@@ -17,6 +17,14 @@
   </div>
 
   <div>
+    <%= form.label :quantities, style: "display: block" %>
+    <%= form.fields_for :order_details do |order_details_form| %>
+      <%= order_details_form.text_field :quantity %>
+      <%= order_details_form.collection_select :menu_id, Menu.all, :id, :name %>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.label :total, style: "display: block" %>
     <%= form.text_field :total %>
   </div>
