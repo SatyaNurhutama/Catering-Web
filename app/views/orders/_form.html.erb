@@ -19,9 +19,10 @@
   <div>
     <%= form.label :quantities, style: "display: block" %>
     <%= form.fields_for :order_details do |order_details_form| %>
-      <%= order_details_form.text_field :quantity %>
-      <%= order_details_form.collection_select :menu_id, Menu.all, :id, :name %>
+      <%= render 'order_detail_forms', order_details_form: order_details_form %>
     <% end %>
+    <%= link_add_menu_form "Add menu", form, :order_details %>
+    
   </div>
 
   <div>

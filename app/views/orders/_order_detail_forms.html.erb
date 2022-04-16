@@ -1,0 +1,2 @@
+<%= order_details_form.text_field :quantity %>
+<%= order_details_form.collection_select :menu_id, Menu.all, :id, :name %>
