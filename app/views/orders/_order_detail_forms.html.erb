@@ -1,2 +1,7 @@
-<%= order_details_form.text_field :quantity %>
+<%= order_details_form.label :Menu, style: "display: block" %>
 <%= order_details_form.collection_select :menu_id, Menu.all, :id, :name %>
+
+<%= order_details_form.label :Quantity, style: "display: block" %>
+<%= order_details_form.text_field :quantity %>
+
+  

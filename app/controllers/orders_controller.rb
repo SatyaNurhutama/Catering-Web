@@ -18,7 +18,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
-    @order.order_details.build
   end
 
   # POST /orders or /orders.json
