@@ -9,6 +9,8 @@
     <%= order.total %>
   </p>
 
+  <p> <%= order.created_at.strftime('%B %d %Y, %l:%M%P, %z') %></p>
+
   <% order.order_details.each do |od|%>
     <strong>Menu:</strong>
     <%= Menu.find(od.menu_id).name %>
