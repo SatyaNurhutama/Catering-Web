@@ -1,0 +1,27 @@
+<% @orders.each do |order| %>
+  <% if order.created_at.to_date == Date.today %>
+    <p>
+      <strong>Customer:</strong>
+      <%= Customer.find(order.customer_id).email %>
+    </p>
+  
+    <p>
+      <strong>Total:</strong>
+      <%= order.total %>
+    </p>
+  
+    <p> <%= order.created_at.strftime('%B %d %Y, %l:%M%P, %z') %></p>
+  
+    <% order.order_details.each do |od|%>
+      <strong>Menu:</strong>
+      <%= Menu.find(od.menu_id).name %>
+      <strong>Quantity:</strong>
+      <%= od.quantity %>
+    <% end %>
+  
+    <p>
+      <strong>Status:</strong>
+      <%= order.status %>
+    </p>
+  <% end %>
+<% end %>
