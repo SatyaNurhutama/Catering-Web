@@ -8,8 +8,10 @@ class Order < ApplicationRecord
 
   def set_status()
     self.status ||= "NEW"
+    
     time_now = Time.zone.now
     time_max = Time.zone.parse("17:00")
+    
     if time_now >= time_max
       if self.status != "PAID"
         self.status = "CANCELED"

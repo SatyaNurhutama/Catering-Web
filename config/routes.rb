@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get "/report", to: "report#index"
+  get "/report/date", to: "report#date"
 end
