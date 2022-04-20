@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   has_many :menus, through: :order_details
   accepts_nested_attributes_for :order_details
 
-  after_initialize :set_status
+  before_save :set_status, :calculate_total
   after_find :update_status
 
   #automatically when create new order the status will be 'NEW'
@@ -22,6 +22,14 @@ class Order < ApplicationRecord
         self.status = "CANCELED"
         save!
       end
+    end
+  end
+
+  #calcute for total price in order
+  def calculate_total
+    self.total = 0.0
+    order_details.each do |order_detail|
+      self.total += order_detail.menu.price * order_detail.quantity
     end
   end
   
