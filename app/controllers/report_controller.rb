@@ -12,4 +12,7 @@ class ReportController < ApplicationController
     @orders = Order.search_customer(params[:search])
   end
 
+  def total
+    @orders = Order.search_total(params[:search])
+  end
 end

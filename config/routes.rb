@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get "/report", to: "report#index"
   get "/report/date", to: "report#date"
   get "/report/email", to: "report#email"
+  get "/report/total", to: "report#total"
 end

@@ -1,0 +1,40 @@
+<div class="content p-5">
+  <h1 class="mb-4">Report based on total</h1>
+
+  <%= form_tag report_total_path, method: :get do %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+  
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Number</th>
+        <th scope="col">Email</th>
+        <th scope="col">Total</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Menu & Quantity</th>
+      </tr>
+    </thead>
+  
+    <% i = 0 %>
+    <% @orders.each do |order| %>
+        <tbody>
+          <tr>
+            <th scope="row"><%= i+=1 %> </th>
+            <td><%= Customer.find(order.customer_id).email %></td>
+            <td><%= order.total %></td>
+            <td><%= order.created_at.strftime("%Y-%m-%d") %></td>
+            <td><%= order.status %></td>
+            <td colspan=3>
+            <% order.order_details.each do |od|%>
+              <%= Menu.find(od.menu_id).name %> :
+              <%= od.quantity %>
+            <% end %>
+            </td>    
+          </tr>
+        </tbody>
+    <% end %>
+  </table>
+</div>

@@ -37,5 +37,10 @@ class Order < ApplicationRecord
   def self.search_customer(search)
     joins(:customer).where(["customers.email like ?",search])
   end
+
+  #to search based on greater than total in report
+  def self.search_total(search)
+    where(["orders.total > ?",search])
+  end
   
 end
