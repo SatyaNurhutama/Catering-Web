@@ -4,6 +4,12 @@ class ReportController < ApplicationController
   end
 
   def date
-    @orders = Order.where(created_at: (Date.today - 7.days)..Date.today)
+    @search = ReportSearchDate.new(params[:search])
+    @orders = @search.filter_date
   end
+
+  def email
+    @orders = Order.search_customer(params[:search])
+  end
+
 end

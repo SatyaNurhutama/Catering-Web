@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "/report", to: "report#index"
   get "/report/date", to: "report#date"
+  get "/report/email", to: "report#email"
 end

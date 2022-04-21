@@ -1,9 +1,8 @@
 <div class="content p-5">
-  <h1 class="mb-4">Report base on date</h1>
+  <h1 class="mb-4">Report based on Email</h1>
 
-  <%= form_tag report_date_path, method: :get do %>
-    <input type="date" <%= text_field_tag 'search[date_from]', @search.date_from %>
-    <input type="date" <%= text_field_tag 'search[date_to]', @search.date_to %>
+  <%= form_tag report_email_path, method: :get do %>
+    <%= text_field_tag :search, params[:search] %>
     <%= submit_tag 'Search' %>
   <% end %>
   

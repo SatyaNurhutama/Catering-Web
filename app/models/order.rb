@@ -32,5 +32,10 @@ class Order < ApplicationRecord
       self.total += order_detail.menu.price * order_detail.quantity
     end
   end
+
+  #to search based on customer email in report
+  def self.search_customer(search)
+    joins(:customer).where(["customers.email like ?",search])
+  end
   
 end
