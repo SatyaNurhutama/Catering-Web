@@ -6,7 +6,8 @@ class Order < ApplicationRecord
   has_many :menus, through: :order_details
   accepts_nested_attributes_for :order_details
 
-  before_save :set_status, :calculate_total
+  after_save :set_status
+  before_validation :calculate_total
   after_find :update_status
 
   #automatically when create new order the status will be 'NEW'
@@ -29,9 +30,13 @@ class Order < ApplicationRecord
 
   #calcute for total price in order
   def calculate_total
-    self.total = 0.0
+    self.total = 0
     order_details.each do |order_detail|
-      self.total += order_detail.menu.price * order_detail.quantity
+      if order_detail.quantity.nil?
+        self.total += order_detail.menu.price * 1
+      else
+        self.total += order_detail.menu.price * order_detail.quantity
+      end
     end
   end
 

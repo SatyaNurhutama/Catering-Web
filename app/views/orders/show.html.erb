@@ -1,10 +1,24 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green" class="text-center"><%= notice %></p>
 
-<%= render @order %>
-
-<div>
-  <%= link_to "Edit this order", edit_order_path(@order) %> |
-  <%= link_to "Back to orders", orders_path %>
-
-  <%= button_to "Destroy this order", @order, method: :delete %>
+<div class="container-fluid bg-primary text-light p-5">
+    <div class="container bg-primary p-5">
+      <h1 class="display-4"><%= Customer.find(@order.customer_id).email %></h1>
+      <hr>
+      <p class="lead">Menu & Quantity : 
+        <% @order.order_details.each do |order_detail|%>
+              <%= Menu.find(order_detail.menu_id).name %>
+              <%= order_detail.quantity %>
+        <% end %>
+      </p>
+      <p class="lead">Total Price: Rp <%= @order.total %></p>
+      <p class="lead">Date: <%= @order.created_at.strftime("%d-%m-%Y") %></p>
+      <p class="lead">Status: <%= @order.status %></p>
+      
+      <hr>
+      <div class="btn-group">
+        <%= link_to "Edit this order", edit_order_path(@order), class:"btn btn-warning me-2 rounded" %>
+        <%= link_to "Back to orders", orders_path, class:"btn btn-dark me-2 rounded" %>
+        <%= button_to "Delete this order", @order, method: :delete, class:"btn btn-danger" %>  
+      </div>
+    </div>
 </div>

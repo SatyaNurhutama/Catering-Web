@@ -1,26 +1,46 @@
-<div id="<%= dom_id order %>">
-  <p>
-    <strong>Customer:</strong>
-    <%= Customer.find(order.customer_id).email %>
-  </p>
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+  }
+</style>
 
-  <p>
-    <strong>Total:</strong>
-    <%= order.total %>
-  </p>
-
-  <p> <%= order.created_at.strftime('%B %d %Y, %l:%M%P, %z') %></p>
-
-  <% order.order_details.each do |od|%>
-    <strong>Menu:</strong>
-    <%= Menu.find(od.menu_id).name %>
-    <strong>Quantity:</strong>
-    <%= od.quantity %>
-  <% end %>
-
-  <p>
-    <strong>Status:</strong>
-    <%= order.status %>
-  </p>
-
+<div>
+  <div class="card">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Number</th>
+          <th scope="col">Customer</th>
+          <th scope="col">Total</th>
+          <th scope="col">Date</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+          <th scope="col">Menu & Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each_with_index do |order, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= Customer.find(order.customer_id).email %></td>
+          <td><%= order.total %></td>
+          <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+          <td><%= order.status %></td>
+          <td>
+            <%= link_to "Show", order, class:"btn btn-primary me-2 rounded" %>
+          </td>
+          <td colspan=3>
+            <% order.order_details.each do |od|%>
+              <%= Menu.find(od.menu_id).name %> :
+              <%= od.quantity %>
+            <% end %>
+          </td>    
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
