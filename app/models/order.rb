@@ -1,13 +1,10 @@
 class Order < ApplicationRecord
-  validates :total, numericality: true
-
   belongs_to :customer
   has_many :order_details, dependent: :delete_all
   has_many :menus, through: :order_details
   accepts_nested_attributes_for :order_details
 
-  after_save :set_status
-  before_validation :calculate_total
+  before_save :set_status, :calculate_total
   after_find :update_status
 
   #automatically when create new order the status will be 'NEW'
@@ -32,11 +29,7 @@ class Order < ApplicationRecord
   def calculate_total
     self.total = 0
     order_details.each do |order_detail|
-      if order_detail.quantity.nil?
-        self.total += order_detail.menu.price * 1
-      else
-        self.total += order_detail.menu.price * order_detail.quantity
-      end
+      self.total += order_detail.menu.price * order_detail.quantity
     end
   end
 

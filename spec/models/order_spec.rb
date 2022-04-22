@@ -30,7 +30,7 @@ RSpec.describe Order, type: :model do
 
   it 'is invalid with a total not numeric' do
     customer = FactoryBot.create(:customer)
-    order = FactoryBot.build(:order, customer_id: 1, total: "SAtya")
+    order = FactoryBot.build(:order, customer_id: 1, total: "asas")
 
     order.valid?
     
