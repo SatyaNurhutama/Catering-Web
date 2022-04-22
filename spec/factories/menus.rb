@@ -5,6 +5,12 @@ FactoryBot.define do
     price { 10000.0}
   end
 
+  factory :invalid_menu, parent: :menu do
+    name { nil }
+    description { nil }
+    price { 10000.0 }
+  end
+
   factory :category do
     name { Faker::Food.ethnic_category }
   end
