@@ -10,6 +10,11 @@ FactoryBot.define do
     email {  "satya@gmail.com" }
   end
 
+  factory :invalid_customer, parent: :customer do
+    name { "satya" }
+    email {  "satya@wkkwkw" }
+  end
+
   factory :order_detail do
     menu
     order
