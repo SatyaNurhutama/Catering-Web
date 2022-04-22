@@ -27,13 +27,4 @@ RSpec.describe Order, type: :model do
     
     expect(order_detail2).to be_valid
   end
-
-  it 'is invalid with a total not numeric' do
-    customer = FactoryBot.create(:customer)
-    order = FactoryBot.build(:order, customer_id: 1, total: "asas")
-
-    order.valid?
-    
-    expect(order.errors[:total]).to include("is not a number")
-  end
 end

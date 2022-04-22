@@ -8,6 +8,7 @@ FactoryBot.define do
   factory :invalid_order, parent: :order do
     total { "SATya" }
     status { "NEW" }
+    customer { nil }
   end
 
   factory :customer do

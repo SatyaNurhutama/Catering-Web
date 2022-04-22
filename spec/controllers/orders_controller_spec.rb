@@ -101,19 +101,6 @@ RSpec.describe OrdersController do
           expect(response).to redirect_to @order
         end
       end
-
-      context 'with invalid attributes' do
-        it 'does not save the updated order in the database' do
-          patch :update, params: { id: @order, order: attributes_for(:invalid_order, status: 'PAID', price: "Test") }
-          expect(@order.status).not_to eq('PAID')
-        end
-  
-        it 're-renders the edit template' do
-          patch :update, params: { id: @order, order: attributes_for(:invalid_order) }
-          expect(assigns(:order)).to eq @order
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
-      end
     end
 
     describe 'DELETE #destroy' do
