@@ -1,7 +1,33 @@
-<div id="<%= dom_id category %>">
-  <p>
-    <strong>Name:</strong>
-    <%= category.name %>
-  </p>
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+  }
+</style>
 
+<div>
+  <div class="card">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Number</th>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.each_with_index do |category, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= category.name %></td>
+          <td>
+          <%= link_to "Show", category, class:"btn btn-primary me-2 rounded" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

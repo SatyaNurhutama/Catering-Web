@@ -1,10 +1,13 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green" class="text-center"><%= notice %></p>
 
-<%= render @category %>
-
-<div>
-  <%= link_to "Edit this category", edit_category_path(@category) %> |
-  <%= link_to "Back to categories", categories_path %>
-
-  <%= button_to "Destroy this category", @category, method: :delete %>
+<div class="container-fluid bg-primary text-light p-5">
+    <div class="container bg-primary p-5">
+      <h1 class="display-4"><%= @category.name %></h1>
+      <hr>
+      <div class="btn-group">
+        <%= link_to "Edit this category", edit_category_path(@category), class:"btn btn-warning me-2 rounded" %>
+        <%= link_to "Back to categories", categories_path, class:"btn btn-dark me-2 rounded" %>
+        <%= button_to "Delete this category", @category, method: :delete, class:"btn btn-danger" %>  
+      </div>
+    </div>
 </div>
