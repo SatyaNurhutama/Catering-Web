@@ -76,6 +76,60 @@ RSpec.describe CustomersController do
         end
       end
     end
+
+    describe 'PATCH #update' do
+      before :each do
+        @customer = create(:customer)
+      end
+  
+      context "with valid attributes" do
+        it "locates the requested @customer" do
+          patch :update, params: { id: @customer, customer: attributes_for(:customer) }
+          expect(assigns(:customer)).to eq @customer
+        end
+  
+        it "changes @customer's attributes" do
+          patch :update, params: { id: @customer, customer: attributes_for(:customer, email: 'satya1@gmail.com') }
+          @customer.reload
+          expect(@customer.email).to eq('satya1@gmail.com')
+        end
+  
+        it "redirects to the customer" do
+          patch :update, params: { id: @customer, customer: attributes_for(:customer) }
+          expect(response).to redirect_to @customer
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 'does not save the updated customer in the database' do
+          patch :update, params: { id: @customer, customer: attributes_for(:invalid_customer, name: 'satya', email: 'satyaw') }
+          expect(@customer.name).not_to eq('satyanur')
+        end
+  
+        it 're-renders the edit template' do
+          patch :update, params: { id: @customer, customer: attributes_for(:invalid_customer) }
+          expect(assigns(:customer)).to eq @customer
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      before :each do
+        @customer = create(:customer)
+      end
+  
+      it "deletes the customer from the database" do
+        expect{
+          delete :destroy, params: { id: @customer }
+        }.to change(Customer, :count).by(-1)
+      end
+  
+      it "redirects to customers#index" do
+        delete :destroy, params: { id: @customer }
+        expect(response).to redirect_to customers_url
+      end
+    end
     
   end
 end

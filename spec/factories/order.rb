@@ -16,8 +16,8 @@ FactoryBot.define do
   end
 
   factory :invalid_customer, parent: :customer do
-    name { "satya" }
-    email {  "satya@wkkwkw" }
+    name { "satyanu" }
+    email { "satya@wkkwkw" }
   end
 
   factory :order_detail do
