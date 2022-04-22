@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'category/index'
   resources :orders
   resources :customers
   resources :menus
