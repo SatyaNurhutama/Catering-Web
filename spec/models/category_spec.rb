@@ -2,16 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Category, type: :model do
   it "is valid with a name" do
-    category = Category.new(
-      name: "Makanan"
-    )
-    expect(category).to be_valid
+    expect(FactoryBot.build(:category)).to be_valid
   end
 
   it "is invalid without a name" do
-    category = Category.new(
-      name: nil
-    )
+    category = FactoryBot.build(:category, name: nil)
 
     category.valid?
 
@@ -19,13 +14,8 @@ RSpec.describe Category, type: :model do
   end
 
   it "is invalid with duplicate name" do
-    category1 = Category.create(
-      name: "Makanan"
-    )
-
-    category2 = Category.new(
-      name: "Makanan"
-    )
+    category1 = FactoryBot.create(:category, name: "Food")
+    category2 = FactoryBot.build(:category, name: "Food")
 
     category2.valid?
 
