@@ -1,10 +1,21 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green" class="text-center"><%= notice %></p>
 
-<%= render @menu %>
-
-<div>
-  <%= link_to "Edit this menu", edit_menu_path(@menu) %> |
-  <%= link_to "Back to menus", menus_path %>
-
-  <%= button_to "Destroy this menu", @menu, method: :delete %>
+<div class="container-fluid bg-primary text-light p-5">
+    <div class="container bg-primary p-5">
+      <h1 class="display-4"><%= @menu.name %></h1>
+      <hr>
+      <p class="lead"><%= @menu.description %></p>
+      <p class="lead">Price : Rp <%= @menu.price %></p>
+      <p class="lead">Category : 
+        <% @menu.menu_categories.each do |menu_category|%>
+              <%= Category.find(menu_category.category_id).name %>
+        <% end %>
+      </p>
+      <hr>
+      <div class="btn-group">
+        <%= link_to "Edit this menu", edit_menu_path(@menu), class:"btn btn-warning me-2 rounded" %>
+        <%= link_to "Back to menus", menus_path, class:"btn btn-dark me-2 rounded" %>
+        <%= button_to "Delete this menu", @menu, method: :delete, class:"btn btn-danger" %>  
+      </div>
+    </div>
 </div>

@@ -1,17 +1,41 @@
-<div id="<%= dom_id menu %>">
-  <p>
-    <strong>Name:</strong>
-    <%= menu.name %>
-  </p>
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+  }
+</style>
 
-  <p>
-    <strong>Description:</strong>
-    <%= menu.description %>
-  </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= menu.price %>
-  </p>
-
+<div>
+  <div class="card">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Description</th>
+          <th scope="col">Action</th>
+          <th scope="col">Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @menus.each do |menu| %>
+        <tr>
+          <td><%= menu.name %></td>
+          <td><%= menu.price %></td>
+          <td><%= menu.description %></td>
+          <td>
+          <%= link_to "Show", menu, class:"btn btn-primary me-2 rounded" %>
+          </td>
+          <td colspan=3>
+            <% menu.menu_categories.each do |menu_category|%>
+              <%= Category.find(menu_category.category_id).name %>
+            <% end %>
+          </td>    
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

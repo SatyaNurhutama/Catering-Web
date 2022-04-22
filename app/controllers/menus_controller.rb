@@ -4,6 +4,7 @@ class MenusController < ApplicationController
   # GET /menus or /menus.json
   def index
     @menus = Menu.all
+    @menu = Menu.new
   end
 
   # GET /menus/1 or /menus/1.json
