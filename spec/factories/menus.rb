@@ -6,7 +6,7 @@ FactoryBot.define do
   end
 
   factory :category do
-    name { "Food" }
+    name { Faker::Food.ethnic_category }
   end
 
   factory :menu_category do
