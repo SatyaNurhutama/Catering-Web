@@ -4,7 +4,7 @@ class Menu < ApplicationRecord
   validates :description, length:{ maximum: 150, too_long: "%{count} characters is the maximum allowed"}
   validates :categories, :presence => true
   
-  has_many :menu_categories
+  has_many :menu_categories, dependent: :delete_all
   has_many :categories, through: :menu_categories
   has_many :order_details
   has_many :orders, through: :order_details

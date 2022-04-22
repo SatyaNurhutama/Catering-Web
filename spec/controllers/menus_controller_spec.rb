@@ -82,6 +82,62 @@ RSpec.describe MenusController do
         end
       end
     end
+
+    describe 'PATCH #update' do
+      before :each do
+        @category = create(:category)
+        @menu = create(:menu, category_ids: [1])
+      end
+  
+      context "with valid attributes" do
+        it "locates the requested @menu" do
+          patch :update, params: { id: @menu, menu: attributes_for(:menu) }
+          expect(assigns(:menu)).to eq @menu
+        end
+  
+        it "changes @menu's attributes" do
+          patch :update, params: { id: @menu, menu: attributes_for(:menu, name: 'Chicken Smackdown') }
+          @menu.reload
+          expect(@menu.name).to eq('Chicken Smackdown')
+        end
+  
+        it "redirects to the menu" do
+          patch :update, params: { id: @menu, menu: attributes_for(:menu) }
+          expect(response).to redirect_to @menu
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 'does not save the updated menu in the database' do
+          patch :update, params: { id: @menu, menu: attributes_for(:invalid_menu, name: nil) }
+          expect(@menu.name).not_to eq('Chicken Smackdown')
+        end
+  
+        it 're-renders the edit template' do
+          patch :update, params: { id: @menu, menu: attributes_for(:invalid_menu) }
+          expect(assigns(:menu)).to eq @menu
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      before :each do
+        @category = create(:category)
+        @menu = create(:menu, category_ids: [1])
+      end
+  
+      it "deletes the menu from the database" do
+        expect{
+          delete :destroy, params: { id: @menu }
+        }.to change(Menu, :count).by(-1)
+      end
+  
+      it "redirects to menus#index" do
+        delete :destroy, params: { id: @menu }
+        expect(response).to redirect_to menus_url
+      end
+    end
     
   end
 end
