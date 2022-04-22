@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  validates :total, numericality: true
+
   belongs_to :customer
   has_many :order_details, dependent: :delete_all
   has_many :menus, through: :order_details

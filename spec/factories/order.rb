@@ -1,8 +1,13 @@
 FactoryBot.define do
   factory :order do
     total { 10000.0 }
-    status { "NEW" }
+    status { "CANCELED" }
     customer
+  end
+
+  factory :invalid_order, parent: :order do
+    total { "SATya" }
+    status { "NEW" }
   end
 
   factory :customer do
