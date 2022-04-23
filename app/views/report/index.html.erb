@@ -1,36 +1,61 @@
-<div class="content p-5">
-  <h1 class="mb-4">Daily Report</h1>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">Number</th>
-        <th scope="col">Email</th>
-        <th scope="col">Total</th>
-        <th scope="col">Date</th>
-        <th scope="col">Status</th>
-        <th scope="col">Menu & Quantity</th>
-      </tr>
-    </thead>
+<div class="content p-4 justify-content-center">
+  <h1 class="mx-auto text-center">Daily Report</h1>
   
-    <% i = 0 %>
-    <% @orders.each do |order| %>
-      <% if order.created_at.to_date == Date.today %>
-        <tbody>
+  <div class="row text-center mb-4">
+    <div class="col text-center">
+      <p class="lead">Search By : </p>
+      <div class="btn-group">
+        <%= link_to "Date", report_date_path, class:"btn btn-warning me-2 rounded" %>
+        <%= link_to "Total", report_total_path, class:"btn btn-warning me-2 rounded" %>
+        <%= link_to "Email", report_email_path, class:"btn btn-warning me-2 rounded" %>
+      </div>
+    </div>
+  </div>
+  
+  <div>
+    <div class="card">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
           <tr>
-            <th scope="row"><%= i+=1 %> </th>
-            <td><%= Customer.find(order.customer_id).email %></td>
-            <td><%= order.total %></td>
-            <td><%= order.created_at.strftime("%Y-%m-%d") %></td>
-            <td><%= order.status %></td>
-            <td colspan=3>
-            <% order.order_details.each do |od|%>
-              <%= Menu.find(od.menu_id).name %> :
-              <%= od.quantity %>
-            <% end %>
-            </td>    
+            <th scope="col">Number</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Total</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Menu & Quantity</th>
           </tr>
+        </thead>
+        <tbody>
+          <% number = 0 %>
+          <% @orders.each do |order| %>
+            <% if order.created_at.to_date == Date.today %>
+              <tr>
+                <td><%= number += 1 %></td>
+                <td><%= Customer.find(order.customer_id).email %></td>
+                <td><%= order.total %></td>
+                <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+                <td><%= order.status %></td>
+                <td colspan=3>
+                  <% order.order_details.each do |od|%>
+                    <%= Menu.find(od.menu_id).name %> :
+                    <%= od.quantity %>
+                  <% end %>
+                </td>    
+              </tr>
+            <% end %>
+          <% end %>
         </tbody>
-      <% end %>
-    <% end %>
-  </table>
+      </table>
+    </div>
+  </div>
+  
 </div>
+
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+  }
+</style>

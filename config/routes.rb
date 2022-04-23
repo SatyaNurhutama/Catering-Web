@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get "/report/date", to: "report#date"
   get "/report/email", to: "report#email"
   get "/report/total", to: "report#total"
+
+  get "/", to: "home#index"
 end
