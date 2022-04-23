@@ -6,7 +6,7 @@ class Menu < ApplicationRecord
   
   has_many :menu_categories, dependent: :delete_all
   has_many :categories, through: :menu_categories
-  has_many :order_details
+  has_many :order_details, dependent: :delete_all
   has_many :orders, through: :order_details
   
 end
